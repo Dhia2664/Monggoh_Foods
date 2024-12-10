@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
+            // $table->string('remember_token', 100)->nullable()->after('password');
             $table->timestamps();
         });
         
@@ -46,5 +47,8 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('remember_token');
+        });
     }
-};
+}
